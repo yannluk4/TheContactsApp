@@ -131,152 +131,106 @@ fun ContactItem(contact: Contact, onClick: () -> Unit){
         }
     }
 }
-//
-//@OptIn(ExperimentalMaterial3Api::class)
-//@Composable
-//fun ContactListScreen(viewModel: ContactViewModel, navController: NavController) {
-//
-//    var searchQuery by remember { mutableStateOf("") }
-//    var isSearching by remember { mutableStateOf(false) }
-//
-//    Scaffold(
-//        topBar = {
-//            Column {
-//                TopAppBar(
-//                    modifier = Modifier.height(56.dp),
-//                    title = {
-//                        Row(
-//                            verticalAlignment = Alignment.CenterVertically,
-//                            modifier = Modifier
-//                                .fillMaxWidth()
-//                                .padding(vertical = 8.dp)
-//                        ) {
-//                            Icon(
-//                                painter = painterResource(id = R.drawable.contacticon),
-//                                contentDescription = null,
-//                                modifier = Modifier.size(32.dp)
-//                            )
-//                            Spacer(modifier = Modifier.width(8.dp))
-//                            Text("Contatos", fontSize = 24.sp, color = Color.White)
-//                        }
-//                    },
-//                    navigationIcon = {
-//                        if (isSearching) {
-//                            IconButton(onClick = {
-//                                isSearching = false
-//                                searchQuery = ""
-//                            }) {
-//                                Icon(
-//                                    imageVector = Icons.Default.ArrowBack,
-//                                    contentDescription = "Voltar",
-//                                    tint = Color.White
-//                                )
-//                            }
-//                        }
-//                    },
-//                    actions = {
-//                        IconButton(onClick = {
-//                            isSearching = true
-//                        }) {
-//                            Icon(
-//                                imageVector = Icons.Default.Search,
-//                                contentDescription = "Pesquisar",
-//                                tint = Color.White
-//                            )
-//                        }
-//                    },
-//                    colors = TopAppBarDefaults.topAppBarColors(
-//                        containerColor = NavyBlue,
-//                        titleContentColor = Color.White,
-//                        navigationIconContentColor = Color.White
-//                    )
-//                )
-//
-//                if (isSearching) {
-//                    TextField(
-//                        value = searchQuery,
-//                        onValueChange = { searchQuery = it },
-//                        placeholder = { Text("Pesquisar...") },
-//                        colors = TextFieldDefaults.textFieldColors(
-//                            containerColor = NavyBlue,
-//                            focusedTextColor = Color.White,
-//                            unfocusedTextColor = Color.White
-//                        ),
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .padding(8.dp)
-//                    )
-//                }
-//            }
-//        },
-//        floatingActionButton = {
-//            FloatingActionButton(containerColor = NavyBlue, onClick = {
-//                navController.navigate("addContact")
-//            }) {
-//                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Contact", tint = Color.White)
-//            }
-//        }
-//    ) { paddingValues ->
-//        val contacts by viewModel.allContacts.observeAsState(initial = emptyList())
-//        val filteredContacts = if (searchQuery.isNotEmpty()) {
-//            contacts.filter {
-//                it.name.contains(searchQuery, ignoreCase = true) ||
-//                        it.phoneNumber.contains(searchQuery, ignoreCase = true) ||
-//                        it.email.contains(searchQuery, ignoreCase = true)
-//            }
-//        } else {
-//            contacts
-//        }
-//
-//        LazyColumn(modifier = Modifier.padding(paddingValues)) {
-//            items(filteredContacts) { contact ->
-//                ContactItem(contact = contact) {
-//                    navController.navigate("contactDetail/${contact.id}")
-//                }
-//            }
-//        }
-//    }
-//}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContactListScreen(viewModel: ContactViewModel, navController: NavController){
+fun ContactListScreen(viewModel: ContactViewModel, navController: NavController) {
 
-    val context = LocalContext.current.applicationContext
+    var searchQuery by remember { mutableStateOf("") }
+    var isSearching by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
-            TopAppBar(modifier = Modifier.height(48.dp),
-                title = {
-                    Box(modifier = Modifier
-                        .fillMaxHeight()
-                        .wrapContentHeight(Alignment.CenterVertically)) {
-                        Text("Contatos", fontSize = 18.sp)
-                    }
-                },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        Toast.makeText(context, "Contatos", Toast.LENGTH_SHORT).show()
-                    }) {
-                        Icon(painter = painterResource(id = R.drawable.contacticon), contentDescription = null)
-                    }
-                }, colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = NavyBlue,
-                    titleContentColor = Color.White,
-                    navigationIconContentColor = Color.White
-                ))
+            Column {
+                TopAppBar(
+                    modifier = Modifier.height(56.dp),
+                    title = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp)
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.contacticon),
+                                contentDescription = null,
+                                modifier = Modifier.size(32.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Contatos", fontSize = 24.sp, color = Color.White)
+                        }
+                    },
+                    navigationIcon = {
+                        if (isSearching) {
+                            IconButton(onClick = {
+                                isSearching = false
+                                searchQuery = ""
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = "Voltar",
+                                    tint = Color.White
+                                )
+                            }
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = {
+                            isSearching = true
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Pesquisar",
+                                tint = Color.White
+                            )
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = NavyBlue,
+                        titleContentColor = Color.White,
+                        navigationIconContentColor = Color.White
+                    )
+                )
+
+                if (isSearching) {
+                    TextField(
+                        value = searchQuery,
+                        onValueChange = { searchQuery = it },
+                        placeholder = { Text("Pesquisar...") },
+                        colors = TextFieldDefaults.textFieldColors(
+                            containerColor = NavyBlue,
+                            focusedTextColor = Color.White,
+                            unfocusedTextColor = Color.White
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
+                    )
+                }
+            }
         },
         floatingActionButton = {
-            FloatingActionButton(containerColor = NavyBlue, onClick = { navController.navigate("addContact")
+            FloatingActionButton(containerColor = NavyBlue, onClick = {
+                navController.navigate("addContact")
             }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add Contact", tint = Color.White)
             }
         }
     ) { paddingValues ->
         val contacts by viewModel.allContacts.observeAsState(initial = emptyList())
-        LazyColumn(modifier = Modifier.padding(paddingValues)
-        ) {
-            items(contacts){contact ->
+        val filteredContacts = if (searchQuery.isNotEmpty()) {
+            contacts.filter {
+                it.name.contains(searchQuery, ignoreCase = true) ||
+                        it.phoneNumber.contains(searchQuery, ignoreCase = true) ||
+                        it.email.contains(searchQuery, ignoreCase = true)
+            }
+        } else {
+            contacts
+        }
+
+        LazyColumn(modifier = Modifier.padding(paddingValues)) {
+            items(filteredContacts) { contact ->
                 ContactItem(contact = contact) {
                     navController.navigate("contactDetail/${contact.id}")
                 }
